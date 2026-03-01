@@ -1,5 +1,9 @@
+// src/routes/Home.tsx
+// This component serves as the home page, displaying the paper list and create form.
+
 import { useState } from "react";
 import type {
+  Author,
   AuthorsListResponse,
   PaperFormData,
   PaperCreatePayload,
@@ -9,56 +13,79 @@ import PaperList from "../components/PaperList";
 import styles from "../styles/Home.module.css";
 
 export default function Home() {
+  /**
+   * Message displayed after create success/failure.
+   * Required messages:
+   * - "Paper created successfully"
+   * - "Error creating paper"
+   */
   const [message, setMessage] = useState<string | null>(null);
 
+  /**
+   * TODO:
+   * Implement paper creation logic.
+   *
+   * Steps required:
+   * 1. Clear any previous message.
+   * 2. Fetch all authors from GET /api/authors.
+   * 3. Map selected authorIds (from PaperFormData)
+   *    to full author objects required by backend.
+   * 4. Construct PaperCreatePayload.
+   * 5. Send POST /api/papers with JSON body.
+   * 6. On success:
+   *      - Set message "Paper created successfully"
+   *      - Reload page after 3 seconds
+   *        (No need to refresh paper list manually)
+   * 7. On failure:
+   *      - Set error "Error creating paper"
+   *
+   * Important:
+   * Backend expects authors as objects (not just IDs).
+   */
   const handleCreatePaper = async (paperData: PaperFormData) => {
     try {
-      setMessage(null);
+      // TODO: clear message
 
-      const authorsRes = await fetch("/api/authors");
-      if (!authorsRes.ok) throw new Error();
-      const authorsData = (await authorsRes.json()) as AuthorsListResponse;
+      // TODO: fetch("/api/authors")
+      // TODO: if response not ok, throw new Error()
+      // TODO: parse as AuthorsListResponse
 
-      const selectedAuthors = authorsData.authors
-        .filter((a) => paperData.authorIds.includes(a.id))
-        .map((a) => ({
-          name: a.name,
-          email: a.email,
-          affiliation: a.affiliation,
-        }));
+      // TODO:
+      // Map paperData.authorIds -> full author objects
+      // Then transform into minimal AuthorInput objects
+      // (name, email, affiliation)
 
       const createPayload: PaperCreatePayload = {
         title: paperData.title,
         publishedIn: paperData.publishedIn,
         year: paperData.year,
-        authors: selectedAuthors,
+        authors: [], // TODO: replace with mapped authors
       };
 
-      const res = await fetch("/api/papers", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(createPayload),
-      });
+      // TODO: POST /api/papers with JSON body
 
-      if (!res.ok) throw new Error();
+      // TODO: if response not ok, throw new Error()
 
-      setMessage("Paper created successfully");
-      setTimeout(() => window.location.reload(), 3000);
+      // TODO: set message "Paper created successfully"
+
+      // TODO: Reload page after 3 seconds
+      // setTimeout(() => window.location.reload(), 3000);
     } catch {
-      setMessage("Error creating paper");
+      // TODO: set message "Error creating paper"
     }
   };
 
   return (
-    <div className={styles.container}>
-      <h1 className={styles.title}>Paper Management System</h1>
+    <div /* TODO: Style with styles.container */>
+      <h1 /* TODO: Style with styles.title */>Paper Management System</h1>
 
-      {message && <div>{message}</div>}
+      {/* TODO: Render success/error message if present */}
+      {message && <div>{/* TODO */}</div>}
 
-      <h2 className={styles.sectionTitle}>Create New Paper</h2>
+      <h2 /* TODO: Style with styles.sectionTitle */>Create New Paper</h2>
       <PaperForm onSubmit={handleCreatePaper} />
 
-      <h2 className={styles.sectionTitle}>Papers</h2>
+      <h2 /* TODO: Style with styles.sectionTitle */>Papers</h2>
       <PaperList />
     </div>
   );

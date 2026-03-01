@@ -1,3 +1,5 @@
+// This component renders a multi-select dropdown for choosing authors.
+
 import { useEffect, useState } from "react";
 import type { Author, AuthorsListResponse } from "../types";
 
@@ -14,49 +16,55 @@ export default function AuthorSelect({
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
+  // TODO: Fetch authors from the API when this component mounts.
+  //
+  // Requirements:
+  // - Endpoint: GET /api/authors
+  // - If request fails: show "Error loading authors" above the dropdown
   useEffect(() => {
     const fetchAuthors = async () => {
       try {
-        const res = await fetch("/api/authors");
-        if (!res.ok) throw new Error();
-        const data = (await res.json()) as AuthorsListResponse;
-        setAuthors(data.authors);
+        // TODO: fetch("/api/authors")
+        // TODO: if response not ok, throw new Error()
+        // TODO: parse JSON as AuthorsListResponse
+        // TODO: setAuthors(...) with the authors array
       } catch {
-        setError("Error loading authors");
+        // TODO: set error state to "Error loading authors"
       } finally {
-        setLoading(false);
+        // TODO: set loading state to false
       }
     };
 
     fetchAuthors();
   }, []);
 
+  // TODO: When the user selects/deselects authors, call onChange([...ids]).
+  // Hint: event.target.selectedOptions gives you all currently-selected <option>s.
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const ids = Array.from(event.target.selectedOptions, (opt) =>
-      Number(opt.value),
-    );
-    onChange(ids);
+    // TODO: Convert selected option values (strings) into numbers with  Array.from
   };
 
   return (
     <div>
-      {error && <div className="error">{error}</div>}
+      {/* TODO: Render the required error message above the dropdown */}
+      {error && <div className="error">{/* TODO */}</div>}
 
       <select
         multiple
+        /**
+         * Note: In the DOM, <select> option values are strings.
+         * Converting IDs to strings keeps React controlled properly.
+         */
         value={selectedAuthorIds.map(String)}
         onChange={handleChange}
-        disabled={loading || !!error}
+        // TODO: Disable dropdown during loading or error
+        disabled={/* TODO */}
       >
-        {!loading && authors.length === 0 ? (
-          <option disabled>No authors available</option>
-        ) : (
-          authors.map((author) => (
-            <option key={author.id} value={String(author.id)}>
-              {author.name}
-            </option>
-          ))
-        )}
+        {/* TODO:
+            - If authors is empty (after loading), render:
+              <option disabled>No authors available</option>
+            - Otherwise, render one <option> per author (value = author.id, text = author.name)
+        */}
       </select>
     </div>
   );

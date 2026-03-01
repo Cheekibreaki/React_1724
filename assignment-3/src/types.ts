@@ -38,13 +38,11 @@ export type Author = {
 };
 
 export type Paper = {
-  id: number;
-  title: string;
-  publishedIn: string;
-  year: number;
-  createdAt: string;
-  updatedAt: string;
-  authors: Author[];
+  /**
+   * TODO:
+   * Define the Paper type based on the JSON returned
+   * from GET /api/papers and GET /api/papers/:id.
+   */
 };
 
 // =====================
@@ -59,10 +57,11 @@ export type PapersListResponse = {
 };
 
 export type AuthorsListResponse = {
-  authors: Author[];
-  total: number;
-  limit: number;
-  offset: number;
+  /**
+   * TODO:
+   * Define the shape of the response returned by
+   * GET /api/authors.
+   */
 };
 
 // =====================
