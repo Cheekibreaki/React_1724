@@ -1,0 +1,54 @@
+
+Running 19 tests using 1 worker
+
+  ✓   1 tests/sample.test.ts:88:3 › Assignment 3 › Paper List: Loading State shows 'Loading papers...' initially (2.1s)
+  ✓   2 tests/sample.test.ts:114:3 › Assignment 3 › Paper List: Error State shows 'Error loading papers' if GET /api/papers fails (211ms)
+  ✓   3 tests/sample.test.ts:129:3 › Assignment 3 › Paper List: Paper Rendering for 2 papers (408ms)
+  ✓   4 tests/sample.test.ts:229:3 › Assignment 3 › Create Form: Rendering (inputs + multi-select) and dropdown contains all authors in DB (277ms)
+  ✓   5 tests/sample.test.ts:268:3 › Assignment 3 › Author Dropdown: Error state shows 'Error loading authors' and dropdown disabled (287ms)
+  ✓   6 tests/sample.test.ts:288:3 › Assignment 3 › Author Dropdown: Disabled during loading, enabled after load (2.1s)
+  ✓   7 tests/sample.test.ts:316:3 › Assignment 3 › Create Form Validation: 'Title is required' if empty string (327ms)
+  ✓   8 tests/sample.test.ts:339:3 › Assignment 3 › Create Form Validation: 'Publication venue is required' if empty string (309ms)
+  ✘   9 tests/sample.test.ts:362:3 › Assignment 3 › Create Form Validation: 'Publication year is required' if empty (5.3s)
+  ✓  10 tests/sample.test.ts:385:3 › Assignment 3 › Create Form Validation: 'Valid year after 1900 is required' if year=1900 (364ms)
+  ✓  11 tests/sample.test.ts:408:3 › Assignment 3 › Create Form Validation: 'Please select at least one author' if none selected (285ms)
+  ✓  12 tests/sample.test.ts:431:3 › Assignment 3 › Successful Creation: message + reload after 3s + paper in DOM + DB correct (4.0s)
+  ✓  13 tests/sample.test.ts:490:3 › Assignment 3 › Delete: Confirm message + success (2 papers in DB, delete 1) (598ms)
+  ✓  14 tests/sample.test.ts:559:3 › Assignment 3 › Edit: Loading State shows 'Loading paper details...' initially (2.1s)
+  ✓  15 tests/sample.test.ts:592:3 › Assignment 3 › Edit: Error State shows 'Error loading paper' if GET /api/papers/:id fails (202ms)
+  ✓  16 tests/sample.test.ts:616:3 › Assignment 3 › Edit: Not Found State shows 'Paper not found' on /edit/999 (313ms)
+  ✓  17 tests/sample.test.ts:627:3 › Assignment 3 › Edit: Form pre-population matches DB (title/venue/year + authors displayed) (445ms)
+  ✓  18 tests/sample.test.ts:699:3 › Assignment 3 › Edit Validation: 'Title is required' if title is whitespace only (295ms)
+  ✓  19 tests/sample.test.ts:719:3 › Assignment 3 › Successful Update: 'Paper updated successfully' message (508ms)
+
+
+  1) tests/sample.test.ts:362:3 › Assignment 3 › Create Form Validation: 'Publication year is required' if empty 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoHaveText[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator:  locator('.error')
+    Expected: [32m"[7mPublication year[27m is required"[39m
+    Received: [31m"[7mValid year after 1900[27m is required"[39m
+    Timeout:  5000ms
+
+    Call log:
+    [2m  - Expect "toHaveText" with timeout 5000ms[22m
+    [2m  - waiting for locator('.error')[22m
+    [2m    9 × locator resolved to <div class="error">Valid year after 1900 is required</div>[22m
+    [2m      - unexpected value "Valid year after 1900 is required"[22m
+
+
+      378 |     await page.click('button[type="submit"]');
+      379 |
+    > 380 |     await expect(page.locator(".error")).toHaveText(
+          |                                          ^
+      381 |       "Publication year is required",
+      382 |     );
+      383 |   });
+        at /home/jiping/Projects/ECE1724/assignment-3/assignment-3/tests/sample.test.ts:380:42
+
+    Error Context: test-results/tests-sample-Assignment-3--9e4b0-n-year-is-required-if-empty/error-context.md
+
+  1 failed
+    tests/sample.test.ts:362:3 › Assignment 3 › Create Form Validation: 'Publication year is required' if empty 
+  18 passed (23.3s)
